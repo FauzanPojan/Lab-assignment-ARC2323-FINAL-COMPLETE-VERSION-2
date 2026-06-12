@@ -1,5 +1,8 @@
+CREATE DATABASE IF NOT EXISTS salon_booking;
+USE salon_booking;
+
 -- Users table
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -11,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Services table
-CREATE TABLE IF NOT EXISTS services (
+CREATE TABLE services (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -22,7 +25,7 @@ CREATE TABLE IF NOT EXISTS services (
 );
 
 -- Bookings table
-CREATE TABLE IF NOT EXISTS bookings (
+CREATE TABLE bookings (
     id INT PRIMARY KEY AUTO_INCREMENT,
     booking_no VARCHAR(20) UNIQUE,
     user_id INT,
@@ -40,7 +43,7 @@ CREATE TABLE IF NOT EXISTS bookings (
 );
 
 -- Backup logs
-CREATE TABLE IF NOT EXISTS backup_logs (
+CREATE TABLE backup_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     backup_file VARCHAR(255),
     record_count INT,
@@ -49,10 +52,9 @@ CREATE TABLE IF NOT EXISTS backup_logs (
 
 -- Insert sample data (password = "password123")
 INSERT INTO users (username, password, full_name, email, role) VALUES
-('admin', 'password123', 'Sarah Admin', 'admin@salon.com', 'admin'),
-('emma', 'password123', 'Emma Wilson', 'emma@email.com', 'customer'),
-('lisa', 'password123', 'Lisa Brown', 'lisa@email.com', 'customer')
-ON DUPLICATE KEY UPDATE username=username;
+('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Sarah Admin', 'admin@salon.com', 'admin'),
+('emma', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Emma Wilson', 'emma@email.com', 'customer'),
+('lisa', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Lisa Brown', 'lisa@email.com', 'customer');
 
 -- Insert services
 INSERT INTO services (name, description, price, duration, image_icon) VALUES
