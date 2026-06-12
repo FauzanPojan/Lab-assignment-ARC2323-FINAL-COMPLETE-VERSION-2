@@ -1,6 +1,4 @@
-USE defaultdb;
-
--- 1. Users table
+-- Users table
 CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -12,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Services table
+-- Services table
 CREATE TABLE IF NOT EXISTS services (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -23,7 +21,7 @@ CREATE TABLE IF NOT EXISTS services (
     is_active TINYINT DEFAULT 1
 );
 
--- 3. Bookings table
+-- Bookings table
 CREATE TABLE IF NOT EXISTS bookings (
     id INT PRIMARY KEY AUTO_INCREMENT,
     booking_no VARCHAR(20) UNIQUE,
@@ -41,7 +39,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     FOREIGN KEY (service_id) REFERENCES services(id)
 );
 
--- 4. Backup logs
+-- Backup logs
 CREATE TABLE IF NOT EXISTS backup_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     backup_file VARCHAR(255),
@@ -49,26 +47,24 @@ CREATE TABLE IF NOT EXISTS backup_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. Insert sample data (password = "password123")
+-- Insert sample data (password = "password123")
 INSERT INTO users (username, password, full_name, email, role) VALUES
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Sarah Admin', 'admin@salon.com', 'admin'),
-('emma', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Emma Wilson', 'emma@email.com', 'customer'),
-('lisa', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Lisa Brown', 'lisa@email.com', 'customer')
+('admin', 'password123', 'Sarah Admin', 'admin@salon.com', 'admin'),
+('emma', 'password123', 'Emma Wilson', 'emma@email.com', 'customer'),
+('lisa', 'password123', 'Lisa Brown', 'lisa@email.com', 'customer')
 ON DUPLICATE KEY UPDATE username=username;
 
--- 6. Insert services
+-- Insert services
 INSERT INTO services (name, description, price, duration, image_icon) VALUES
 ('Luxury Haircut', 'Professional haircut with styling and blow-dry', 45.00, 45, 'fa-cut'),
 ('Hair Coloring', 'Full color or highlights with premium products', 120.00, 90, 'fa-palette'),
 ('Spa Manicure', 'Nail shaping, cuticle care, massage and polish', 35.00, 45, 'fa-hand-peace'),
 ('Royal Facial', 'Deep cleansing, exfoliation, mask and massage', 85.00, 60, 'fa-smile'),
 ('Hot Stone Massage', 'Relaxing full body massage with hot stones', 110.00, 60, 'fa-spa'),
-('Bridal Package', 'Complete bridal makeup + hair + nails', 350.00, 180, 'fa-crown')
-ON DUPLICATE KEY UPDATE name=name;
+('Bridal Package', 'Complete bridal makeup + hair + nails', 350.00, 180, 'fa-crown');
 
--- 7. Sample bookings
+-- Sample bookings
 INSERT INTO bookings (booking_no, user_id, service_id, customer_name, customer_email, booking_date, booking_time, status) VALUES
 ('BK-1001', 2, 1, 'Emma Wilson', 'emma@email.com', CURDATE(), '10:00:00', 'confirmed'),
 ('BK-1002', 2, 3, 'Emma Wilson', 'emma@email.com', CURDATE(), '14:30:00', 'pending'),
-('BK-1003', 3, 4, 'Lisa Brown', 'lisa@email.com', CURDATE(), '11:00:00', 'confirmed')
-ON DUPLICATE KEY UPDATE booking_no=booking_no;
+('BK-1003', 3, 4, 'Lisa Brown', 'lisa@email.com', CURDATE(), '11:00:00', 'confirmed');
