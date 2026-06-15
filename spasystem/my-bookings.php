@@ -1,7 +1,4 @@
 <?php
-// Simple XSS protection
-function escape($data) {
-    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 }
 require_once 'config/database.php';
 
